@@ -16,6 +16,7 @@ DEPENDENCIES = ['mqtt']
 
 CONF_TOPIC = 'topic'
 DEFAULT_TOPIC = 'zigbee2mqtt'
+CONF_URL = 'url'
 
 
 async def async_setup(hass, config):
@@ -27,6 +28,7 @@ async def async_setup(hass, config):
     """Set up the zigbee2mqtt_networkmap component."""
     mqtt = hass.components.mqtt
     topic = config[DOMAIN].get(CONF_TOPIC, DEFAULT_TOPIC)
+    adress = config[DOMAIN].get(CONF_URL)
     entity_id = 'zigbee2mqtt_networkmap.map_last_update'
     tmpVar = type('', (), {})()  #tmpVar.received_update and update_data
 
@@ -53,11 +55,10 @@ async def async_setup(hass, config):
     webhook_check_update_url = hass.components.webhook.async_generate_url(webhook_check_update_id)
 
     f = open(hass.config.path('www', 'community', 'zigbee2mqtt_networkmap', 'settings.js'), "w")
-    f.write("// moddified version")
     f.write("\n")
-    f.write("var webhook_trigger_update_url = 'https://xxx.duckdns.org/api/webhook/"+webhook_trigger_update_id+"';")
+    f.write("var webhook_trigger_update_url = '"+adress+"/api/webhook/"+webhook_trigger_update_id+"';")
     f.write("\n")
-    f.write("var webhook_check_update_url = 'https://xxx.duckdns.org/api/webhook/"+webhook_check_update_id+"';")
+    f.write("var webhook_check_update_url = '"+adress+"/api/webhook/"+webhook_check_update_id+"';")
     f.close()
 
 

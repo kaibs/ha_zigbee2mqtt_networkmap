@@ -16,7 +16,7 @@ By default this is using the local ip-adress of HA, which prevents updating of t
         f.write("var webhook_check_update_url = 'https://xxx.duckdns.org/api/webhook/"+webhook_check_update_id+"';")
         f.close()
 
-Where ```xxx.duckdns.org``` is replaced by your duckdns-domain.
+Where ```xxx.duckdns.org``` is your duckdns-domain set in the _configuration.yaml_.
 
 **configuration.yaml:**
 
@@ -25,6 +25,7 @@ Where ```xxx.duckdns.org``` is replaced by your duckdns-domain.
         
         zigbee2mqtt_networkmap:
           #topic: (optional, default zigbee2mqtt)
+          url: 'https://xxx.duckdns.org'
         panel_iframe:
           networkmap:
             title: 'Zigbee Map'
