@@ -5,15 +5,14 @@ modified version of the Custom Component for Homeassistant from [rgruebel](https
 ### **changes:**
 
 While HA is booting the file _settings.js_ is created in the directory _config/www/community/zigbee2mqtt_networkmap_ .
-By default this is using the local ip-adress of HA, which prevents updating of the map when internal dns re-routing is done. Therefore I modified the initialisation of _settings.js_ in ```_init_.py``` (lines 55-61):
+By default this is using the local ip-adress of HA, which prevents updating of the map when internal dns re-routing is done. Therefore I modified the initialisation of _settings.js_ in ```_init_.py```:
 
         
         f = open(hass.config.path('www', 'community', 'zigbee2mqtt_networkmap', 'settings.js'), "w")
-        f.write("// moddified version")
         f.write("\n")
-        f.write("var webhook_trigger_update_url = 'https://xxx.duckdns.org/api/webhook/"+webhook_trigger_update_id+"';")
+        f.write("var webhook_trigger_update_url = '"+adress+"/api/webhook/"+webhook_trigger_update_id+"';")
         f.write("\n")
-        f.write("var webhook_check_update_url = 'https://xxx.duckdns.org/api/webhook/"+webhook_check_update_id+"';")
+        f.write("var webhook_check_update_url = '"+adress+"/api/webhook/"+webhook_check_update_id+"';")
         f.close()
 
 Where ```xxx.duckdns.org``` is your duckdns-domain set in the _configuration.yaml_.
